@@ -1,0 +1,63 @@
+ pml<- read.dta13("trimestral_sin.dta")
+  pmlbca<- read.dta13("trimestral_bca.dta")
+  pmlbcs<- read.dta13("trimestral_bcs.dta")
+  
+> names(pml)
+  names(pmlbca)
+  names(pmlbcs)
+
+>  summary(pml$pml)
+   summary(pml$energia)
+   summary(pml$perdidas)
+   summary(pml$congestion) 
+   summary(pmlbca$pml)
+   summary(pmlbca$energia)
+   summary(pmlbca$congestion)
+   summary(pmlbca$perdida)
+   summary(pmlbcs$pml)
+   summary(pmlbcs$energia)
+   summary(pmlbcs$perdida)
+   summary(pmlbcs$congestion)
+ 
+>  graph1 <- ggplot(pml, aes(hora, pml)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "PML por hora - Trimestre (Ago - Oct)", x="Horas del día", y="$ / Mw/H")
+   graph1
+   graph1bca <- ggplot(pmlbca, aes(hora, pml)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "PML por hora - Trimestre (Ago - Oct)", x="Horas del día", y="$ / Mw/H")
+   graph1bca
+   graph1bcs <- ggplot(pmlbcs, aes(hora, pml)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "PML por hora - Trimestre (Ago - Oct)", x="Horas del día", y="$ / Mw/H")
+   graph1bcs
+
+>  graph2 <- ggplot(pml, aes(hora, congestion)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "Congesti?n por hora - Trimestre (Ago - Oct)")
+   graph2 <- graph2 + labs(x = "Horas del d?a", y = "$/MwH")
+   graph2bca <- ggplot(pmlbca, aes(hora, congestion)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "Congestión por hora - Trimestre (Ago - Oct)", x="Horas del día", y="$ / Mw/H")
+   graph2bca
+   graph2bcs <- ggplot(pmlbcs, aes(hora, congestion)) + geom_boxplot(aes(group = cut_width(hora, 1))) + labs(title = "Congestión por hora - Trimestre (Ago - Oct)", x="Horas del día", y="$ / Mw/H")
+   graph2bcs
+> var(pml)
+  var(pmlbca)
+  var(pmlbcs)
+>  sd(pml$pml)
+   sd(pml$energia)
+   sd(pml$perdidas)
+   sd(pml$congestion)
+   sd(pmlbca$pml)
+   sd(pmlbca$energia)
+   sd(pmlbca$perdida)
+   sd(pmlbca$congestion)
+   sd(pmlbcs$pml)
+   sd(pmlbcs$energia)
+   sd(pmlbcs$perdida)
+   sd(pmlbcs$congestion)
+  
+    #Codigo para imprimir varias pantallas en una.
+    
+    graph3 <- ggplot(pml, aes(hora, energia)) + geom_boxplot(aes(group = cut_width(hora, 1))) +labs(x = "Horas del día", y = "Componente de energía$/MwH") + theme_light()
+
+graph3 <- ggplot(pml, aes(hora, perdida)) + geom_boxplot(aes(group = cut_width(hora, 1))) +labs(x = "Horas del día", y = "Componente de pérdida$/MwH") + theme_light()
+
+> grid.newpage()
+> pushViewport(viewport(layout = grid.layout(2, 2)))
+
+print(graph1bca, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+print(graph1bcs, vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
+print(graph2bca, vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
+print(graph2bcs, vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
